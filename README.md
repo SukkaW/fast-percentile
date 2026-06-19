@@ -1,6 +1,6 @@
 # fast-percentile
 
-Fastest percentile computation in TypeScript / JavaScript for unsorted dataset, 4~7x faster than the second fastest alternative, at all dataset sizes, powered by [quickselect algorithm](https://en.wikipedia.org/wiki/Quickselect).
+Fastest percentile computation in TypeScript / JavaScript for unsorted dataset, 4~7x faster than the second fastest alternative, at all dataset sizes. Powered by [quickselect algorithm](https://en.wikipedia.org/wiki/Quickselect).
 
 ## Install
 
