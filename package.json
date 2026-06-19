@@ -1,6 +1,6 @@
 {
   "name": "fast-percentile",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Fastest percentile computation in TypeScript / JavaScript for unsorted dataset, 4~7x faster than the second fastest alternative, at all dataset sizes. Powered by quickselect algorithm.",
   "repository": {
     "type": "git",
