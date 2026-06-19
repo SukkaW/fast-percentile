@@ -1,7 +1,7 @@
 {
   "name": "fast-percentile",
   "version": "0.1.0",
-  "description": "Fastest percentile computation in TypeScript / JavaScript based on quickselect.",
+  "description": "Fastest percentile computation in TypeScript / JavaScript based on quickselect algorithm.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
