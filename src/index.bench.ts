@@ -36,7 +36,10 @@ const p95 = p(95);
           bench('fast-percentile', () => do_not_optimize(p95(data)));
           bench('just-percentile', () => do_not_optimize(justPercentile(data, 0.95)));
           bench('percentile', () => do_not_optimize(percentile(95, data)));
-          bench('stats-percentile', () => do_not_optimize(statsPercentile(data, 95)));
+
+          if (n < 100000) {
+            bench('stats-percentile', () => do_not_optimize(statsPercentile(data, 95)));
+          }
         });
       });
     }

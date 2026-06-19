@@ -1,6 +1,6 @@
 # fast-percentile
 
-Fastest percentile computation in TypeScript / JavaScript for unsorted input, 4~7x faster than the second fastest alternative, powered by [quickselect algorithm](https://en.wikipedia.org/wiki/Quickselect).
+Fastest percentile computation in TypeScript / JavaScript for unsorted dataset, 4~7x faster than the second fastest alternative, at all dataset sizes, powered by [quickselect algorithm](https://en.wikipedia.org/wiki/Quickselect).
 
 ## Install
 
@@ -49,6 +49,10 @@ Most percentile libraries sort the input array (`O(n log n)`). `fast-percentile`
 pnpm run bench
 ```
 
+`fast-percentile` is consistently 4~7x faster than all other percentile libraries for all dataset sizes (from `10` to `100,000`).
+
+> `stats-percentile` was skipped for `100,000` size benchmark due to its own very inefficient implementation it took way too long to run.
+
 ```
 clk: ~3.31 GHz
 cpu: Apple M2 Max
@@ -56,57 +60,68 @@ runtime: node 24.14.1 (arm64-darwin)
 
 benchmark                   avg (min … max) p75 / p99    (min … top 1%)
 ------------------------------------------- -------------------------------
-• p95 (n=100)
+• p95 (n=10)
 ------------------------------------------- -------------------------------
-fast-percentile              291.75 ns/iter 297.64 ns 329.18 ns ▃▅██▅▄▃▂▂▁▁
-just-percentile                1.20 µs/iter   1.22 µs   1.28 µs ▃▃▅▆█▅▅▄▂▁▁
-percentile                     1.42 µs/iter   1.37 µs   3.05 µs █▄▁▁▁▁▁▁▁▁▁
-stats-percentile               5.76 µs/iter   5.71 µs   6.42 µs ▃█▆▃▁▁▁▁▂▁▃
+fast-percentile               19.59 ns/iter  19.56 ns  31.04 ns ▆█▂▂▁▁▁▁▁▁▁
+just-percentile              169.25 ns/iter 172.68 ns 195.90 ns ▁█▆▄▄▃▂▁▁▁▁
+percentile                   171.13 ns/iter 175.30 ns 195.98 ns █▇▄▃▄▂▂▁▁▁▁
+stats-percentile              71.53 ns/iter  72.67 ns  92.95 ns ▂█▄▂▂▂▁▁▁▁▁
 
 summary
   fast-percentile
-   4.11x faster than just-percentile
-   4.88x faster than percentile
-   19.75x faster than stats-percentile
+   3.65x faster than stats-percentile
+   8.64x faster than just-percentile
+   8.74x faster than percentile
+
+• p95 (n=100)
+------------------------------------------- -------------------------------
+fast-percentile              302.52 ns/iter 306.09 ns 336.66 ns █▄▄▃▂▂▂▁▁▁▁
+just-percentile                1.18 µs/iter   1.20 µs   1.24 µs ▃▆██▇▃▆▄▄▃▂
+percentile                     1.26 µs/iter   1.28 µs   1.36 µs ▄▅███▆▃▂▂▂▁
+stats-percentile               5.66 µs/iter   5.66 µs   6.29 µs ▃▆█▅▁▁▁▁▁▁▂
+
+summary
+  fast-percentile
+   3.91x faster than just-percentile
+   4.17x faster than percentile
+   18.7x faster than stats-percentile
 
 • p95 (n=1,000)
 ------------------------------------------- -------------------------------
-fast-percentile                3.06 µs/iter   3.09 µs   3.57 µs ▂█▅▃▂▂▂▁▁▁▂
-just-percentile               12.91 µs/iter  12.91 µs  13.07 µs █▅█▅▁▅▅▁▁▁▅
-percentile                    13.47 µs/iter  13.25 µs  21.92 µs ▂█▂▁▂▁▁▁▁▁▁
-stats-percentile             535.33 µs/iter 545.92 µs 617.08 µs ▅██▇▅▃▂▂▁▁▁
+fast-percentile                3.03 µs/iter   3.06 µs   3.17 µs ▂▄▇▆▃█▄▂▁▃▂
+just-percentile               12.73 µs/iter  12.71 µs  12.99 µs ▅▁█▁▃▁▁▁▁▃▃
+percentile                    13.30 µs/iter  13.08 µs  20.88 µs ▁█▁▁▁▁▁▁▁▁▁
+stats-percentile             530.53 µs/iter 538.21 µs 602.13 µs ▃██▅▄▂▂▂▁▁▁
 
 summary
   fast-percentile
-   4.22x faster than just-percentile
+   4.21x faster than just-percentile
    4.4x faster than percentile
-   174.9x faster than stats-percentile
+   175.33x faster than stats-percentile
 
 • p95 (n=10,000)
 ------------------------------------------- -------------------------------
-fast-percentile               20.41 µs/iter  20.49 µs  20.51 µs ▃▆▁▃█▁▁▁▁▆▆
-just-percentile              151.24 µs/iter 153.13 µs 178.79 µs ▁█▅▃▂▂▁▁▁▁▁
-percentile                   150.35 µs/iter 151.88 µs 177.33 µs ▁█▄▃▂▂▁▁▁▁▁
-stats-percentile              52.29 ms/iter  52.33 ms  52.60 ms ▅▁▅█▁▅▁█▁▅▅
+fast-percentile               20.78 µs/iter  20.73 µs  20.81 µs █▁▃▃▃▃▁▆▁▁▆
+just-percentile              149.75 µs/iter 149.83 µs 177.38 µs ▁█▄▂▂▁▁▁▁▁▁
+percentile                   148.17 µs/iter 146.67 µs 172.08 µs ▁█▂▂▁▁▁▁▁▁▁
+stats-percentile              52.40 ms/iter  52.45 ms  52.81 ms ▃▁▁▃▆▁█▁▃▁▃
 
 summary
   fast-percentile
-   7.37x faster than percentile
-   7.41x faster than just-percentile
-   2562.52x faster than stats-percentile
+   7.13x faster than percentile
+   7.21x faster than just-percentile
+   2521.52x faster than stats-percentile
 
 • p95 (n=100,000)
 ------------------------------------------- -------------------------------
-fast-percentile              346.74 µs/iter 341.92 µs   1.32 ms █▂▁▁▁▁▁▁▁▁▁
-just-percentile                1.40 ms/iter   1.39 ms   3.21 ms █▅▁▁▁▁▁▁▁▁▁
-percentile                     1.50 ms/iter   1.48 ms   3.63 ms █▂▁▁▁▁▁▁▁▁▁
-stats-percentile                5.30 s/iter    5.32 s    5.33 s ▃▁▃▃▁█▃▃▃▁▆
+fast-percentile              371.92 µs/iter 369.83 µs   1.59 ms █▂▁▁▁▁▁▁▁▁▁
+just-percentile                1.38 ms/iter   1.37 ms   3.10 ms █▂▁▁▁▁▁▁▁▁▁
+percentile                     1.51 ms/iter   1.49 ms   3.80 ms █▂▁▁▁▁▁▁▁▁▁
 
 summary
   fast-percentile
-   4.05x faster than just-percentile
-   4.32x faster than percentile
-   15297.07x faster than stats-percentile
+   3.72x faster than just-percentile
+   4.06x faster than percentile
 ```
 
 ## License
