@@ -19,7 +19,7 @@ function generateData(n: number): number[] {
   return data;
 }
 
-const sizes = [100, 1000, 10000, 100000] as const;
+const sizes = [10, 100, 1000, 10000, 100000] as const;
 const datasets = Object.fromEntries(sizes.map(n => [n, generateData(n)])) as Record<number, number[]>;
 
 const p95 = p(95);
