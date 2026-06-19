@@ -1,6 +1,5 @@
-function quickSelect(arr: number[], rank: number): number {
+function quickSelect(arr: number[], rank: number, high = arr.length): number {
   let low = 0;
-  let high = arr.length;
 
   while (true) {
     const pivot = arr[low];
@@ -49,6 +48,8 @@ function quickSelect(arr: number[], rank: number): number {
   }
 }
 
+const mustNotBeEmptyRangeError = new RangeError('samples must not be empty');
+
 export function p(p: number) {
   if (p < 0 || p > 100 || (p | 0) !== p) {
     throw new RangeError('percentile must be an integer in [0, 100]');
@@ -58,7 +59,7 @@ export function p(p: number) {
     return function p0(samples: number[]): number {
       const length = samples.length;
       if (length === 0) {
-        throw new RangeError('samples must not be empty');
+        throw mustNotBeEmptyRangeError;
       }
 
       let min = samples[0];
@@ -73,7 +74,7 @@ export function p(p: number) {
     return function p100(samples: number[]): number {
       const length = samples.length;
       if (length === 0) {
-        throw new RangeError('samples must not be empty');
+        throw mustNotBeEmptyRangeError;
       }
 
       let max = samples[0];
@@ -87,11 +88,11 @@ export function p(p: number) {
   return function (samples: number[]): number {
     const length = samples.length;
     if (length === 0) {
-      throw new RangeError('samples must not be empty');
+      throw mustNotBeEmptyRangeError;
     }
 
     const r = Math.ceil((p * length) / 100);
-    return quickSelect(samples.slice(), r);
+    return quickSelect(samples.slice(), r, length);
   };
 }
 
