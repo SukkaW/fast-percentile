@@ -20,7 +20,10 @@ function generateData(n: number): number[] {
 }
 
 const sizes = [10, 100, 1000, 10000, 100000] as const;
-const datasets = Object.fromEntries(sizes.map(n => [n, generateData(n)])) as Record<number, number[]>;
+const datasets = sizes.reduce<Record<number, number[]>>((result, n) => {
+  result[n] = generateData(n);
+  return result;
+}, {});
 
 const p95 = p(95);
 
@@ -28,7 +31,8 @@ const p95 = p(95);
   const { bench, group, run, do_not_optimize, compact, summary } = await import('mitata');
 
   compact(() => {
-    for (const n of sizes) {
+    for (let i = 0, len = sizes.length; i < len; i++) {
+      const n = sizes[i];
       summary(() => {
         group(`p95 (n=${n.toLocaleString()})`, () => {
           const data = datasets[n];

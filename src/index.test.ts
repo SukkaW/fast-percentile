@@ -67,7 +67,9 @@ describe('p', () => {
     for (let i = 0; i < 100000; i++) {
       data.push(lcg(i, 6_364_136_223_846_793_005n, 1_442_695_040_888_963_407n));
     }
-    for (const pct of [1, 10, 25, 50, 75, 90, 95, 99]) {
+    const percentiles = [1, 10, 25, 50, 75, 90, 95, 99];
+    for (let i = 0, len = percentiles.length; i < len; i++) {
+      const pct = percentiles[i];
       expect(p(pct)(data)).toEqual(exactPercentile(data, pct));
     }
   });
