@@ -43,7 +43,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@mitata/counters": "^0.0.8",
     "@swc-node/register": "^1.12.1",
-    "@swc/core": "^1.15.47",
+    "@swc/core": "^1.16.1",
     "@types/mocha": "^10.0.10",
     "bumpp": "^10.4.1",
     "bunchee": "^6.12.2",
@@ -61,5 +61,5 @@
     "stats-percentile": "^3.3.0",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@11.21.0"
+  "packageManager": "pnpm@11.22.0"
 }
